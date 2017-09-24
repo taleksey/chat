@@ -38,12 +38,12 @@ class UserController extends Controller
                 \Yii::$app->response->format = Response::FORMAT_JSON;
                 $isSavedUser = $model->save();
                 Yii::$app->user->login($model, $this->rememberUser ? $this->rememberTime : 0);
-                return ['success' => $isSavedUser, 'create' => true, 'user' => ['nick' => $model->nick, 'city' => $model->city, 'id' => $model->id]];
+                return ['success' => $isSavedUser, 'create' => true, 'user' => ['nick' => $model->nick, 'city' => (string)$model->city, 'id' => $model->id]];
             }
         } else {
             \Yii::$app->response->format = Response::FORMAT_JSON;
             \Yii::$app->user->login($user, $this->rememberUser ? $this->rememberTime : 0);
-            return ['success' => true, 'create' => false, 'user' => ['nick' => $user->nick, 'city' => $user->city, 'id' => $user->id]];
+            return ['success' => true, 'create' => false, 'user' => ['nick' => $user->nick, 'city' => (string)$user->city, 'id' => $user->id]];
         }
 
         throw new BadRequestHttpException('Request is not correct.');
